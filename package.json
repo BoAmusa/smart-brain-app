@@ -2,7 +2,7 @@
   "name": "face-recognition-brain",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://boamusa.github.io/smart-brain-app/",
+  "homepage": ".",
   "dependencies": {
     "clarifai": "^2.9.1",
     "react": "^16.11.0",
