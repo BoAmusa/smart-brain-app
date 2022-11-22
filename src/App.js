@@ -28,11 +28,11 @@ const initialState = {
   route: "signin",
   isSignedIn: false,
   user: {
-    id: "",
+    objectId: "",
     name: "",
     email: "",
     entries: 0,
-    joined: "",
+    createdAt: "",
   },
 };
 class App extends Component {
@@ -44,11 +44,11 @@ class App extends Component {
   loadUser = (data) => {
     this.setState({
       user: {
-        id: data.id,
+        objectId: data.objectId,
         name: data.name,
         email: data.email,
         entries: data.entries,
-        joined: data.joined,
+        createdAt: data.createdAt,
       },
     });
   };
@@ -92,7 +92,7 @@ class App extends Component {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              id: this.state.user.id,
+              objectId: this.state.user.objectId,
             }),
           })
             .then((response) => response.json())
