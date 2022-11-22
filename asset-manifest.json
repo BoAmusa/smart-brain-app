@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/smart-brain-app/static/css/main.8a4965b5.css",
+    "main.js": "/smart-brain-app/static/js/main.13738a47.js",
+    "index.html": "/smart-brain-app/index.html",
+    "main.8a4965b5.css.map": "/smart-brain-app/static/css/main.8a4965b5.css.map",
+    "main.13738a47.js.map": "/smart-brain-app/static/js/main.13738a47.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a4965b5.css",
+    "static/js/main.13738a47.js"
+  ]
+}
