@@ -5,28 +5,28 @@ class SignIn extends React.Component {
     super(props);
     this.state = {
       signInEmail: "",
-      signInPassword: ""
+      signInPassword: "",
     };
   }
 
-  onEmailChange = event => {
+  onEmailChange = (event) => {
     this.setState({ signInEmail: event.target.value });
   };
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     this.setState({ signInPassword: event.target.value });
   };
 
   onSubmitSignIn = () => {
-    fetch("https://floating-gorge-50663.herokuapp.com/signin", {
+    fetch("https://smart-brain-api.cyclic.app/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: this.state.signInEmail,
-        password: this.state.signInPassword
-      })
+        password: this.state.signInPassword,
+      }),
     })
-      .then(response => response.json())
-      .then(user => {
+      .then((response) => response.json())
+      .then((user) => {
         if (user.id) {
           this.props.loadUser(user);
           this.props.onRouteChange("home");

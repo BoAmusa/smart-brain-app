@@ -15,10 +15,10 @@ const particlesOptions = {
       value: 30,
       density: {
         enable: true,
-        value_area: 800
-      }
-    }
-  }
+        value_area: 800,
+      },
+    },
+  },
 };
 
 const initialState = {
@@ -32,8 +32,8 @@ const initialState = {
     name: "",
     email: "",
     entries: 0,
-    joined: ""
-  }
+    joined: "",
+  },
 };
 class App extends Component {
   constructor() {
@@ -41,19 +41,19 @@ class App extends Component {
     this.state = initialState;
   }
 
-  loadUser = data => {
+  loadUser = (data) => {
     this.setState({
       user: {
         id: data.id,
         name: data.name,
         email: data.email,
         entries: data.entries,
-        joined: data.joined
-      }
+        joined: data.joined,
+      },
     });
   };
 
-  calculateFaceLocation = data => {
+  calculateFaceLocation = (data) => {
     const clarifiaFace =
       data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputImage");
@@ -63,50 +63,50 @@ class App extends Component {
       leftCol: clarifiaFace.left_col * width,
       topRow: clarifiaFace.top_row * height,
       rightCol: width - clarifiaFace.right_col * width,
-      bottomRow: height - clarifiaFace.bottom_row * height
+      bottomRow: height - clarifiaFace.bottom_row * height,
     };
   };
 
-  displayFaceBox = box => {
+  displayFaceBox = (box) => {
     console.log(box);
     this.setState({ box: box });
   };
 
-  onInputChange = event => {
+  onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch("https://floating-gorge-50663.herokuapp.com/imageurl", {
+    fetch("https://smart-brain-api.cyclic.app/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        input: this.state.input
-      })
+        input: this.state.input,
+      }),
     })
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response) {
-          fetch("https://floating-gorge-50663.herokuapp.com/image", {
+          fetch("https://smart-brain-api.cyclic.app/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              id: this.state.user.id
-            })
+              id: this.state.user.id,
+            }),
           })
-            .then(response => response.json())
-            .then(count => {
+            .then((response) => response.json())
+            .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
             })
             .catch(console.log);
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  onRouteChange = route => {
+  onRouteChange = (route) => {
     if (route === "signout") {
       this.setState(initialState);
     } else if (route === "home") {
