@@ -7,7 +7,7 @@ const FaceRecognition = ({ imageUrl, box }) => {
       <div className="absolute mt2">
         <img
           id="inputImage"
-          alt="last face image"
+          alt="last face pic"
           src={imageUrl}
           width="500px"
           height="auto"
@@ -18,7 +18,7 @@ const FaceRecognition = ({ imageUrl, box }) => {
             top: box.topRow,
             right: box.rightCol,
             bottom: box.bottomRow,
-            left: box.leftCol
+            left: box.leftCol,
           }}
         ></div>
       </div>

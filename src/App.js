@@ -96,8 +96,8 @@ class App extends Component {
             }),
           })
             .then((response) => response.json())
-            .then((count) => {
-              this.setState(Object.assign(this.state.user, { entries: count }));
+            .then((response) => {
+              this.setState(Object.assign(this.state.user, { entries: response.entries }));
             })
             .catch(console.log);
         }
