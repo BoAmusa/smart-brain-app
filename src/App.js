@@ -92,12 +92,14 @@ class App extends Component {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              objectId: this.state.user.objectId,
+              email: this.state.user.email,
             }),
           })
             .then((response) => response.json())
             .then((response) => {
-              this.setState(Object.assign(this.state.user, { entries: response.entries }));
+              this.setState(
+                Object.assign(this.state.user, { entries: response.entries })
+              );
             })
             .catch(console.log);
         }
