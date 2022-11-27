@@ -49,6 +49,7 @@ class App extends Component {
         email: data.email,
         entries: data.entries,
         createdAt: data.createdAt,
+        imageLink: data.imageLink
       },
     });
   };
@@ -93,13 +94,16 @@ class App extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               email: this.state.user.email,
+              imageLink: this.state.imageUrl,
             }),
           })
             .then((response) => response.json())
             .then((response) => {
-              this.setState(
-                Object.assign(this.state.user, { entries: response.entries })
-              );
+              if (response !== undefined) {
+                this.setState(
+                  Object.assign(this.state.user, { entries: response.entries })
+                );
+              }
             })
             .catch(console.log);
         }

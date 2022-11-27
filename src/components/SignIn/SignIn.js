@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class SignIn extends React.Component {
     this.setState({ signInPassword: event.target.value });
   };
 
+  // this.props.loadUser(data);
+  //this.props.onRouteChange("home");
   onSubmitSignIn = () => {
     fetch("https://smart-brain-api.cyclic.app/signin", {
       method: "post",
@@ -26,13 +29,20 @@ class SignIn extends React.Component {
       }),
     })
       .then((response) => response.json())
-      .then((response) => {
-        if (response !== undefined) {
-          this.props.loadUser(response);
+      .then((data) => {
+        console.log(data);
+        if (data !== undefined && data.objectId !== undefined) {
+          this.props.loadUser(data);
           this.props.onRouteChange("home");
+        } else {
+          return data;
         }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
+
   render() {
     const { onRouteChange } = this.props;
     return (
