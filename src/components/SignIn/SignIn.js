@@ -1,5 +1,6 @@
 import React from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import * as ValidationHelper from "../../util/ValidationHelper";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -17,9 +18,19 @@ class SignIn extends React.Component {
     this.setState({ signInPassword: event.target.value });
   };
 
-  // this.props.loadUser(data);
-  //this.props.onRouteChange("home");
   onSubmitSignIn = () => {
+    if (!ValidationHelper.isValidEmail.test(this.state.signInEmail)) {
+      toast.error("Invalid email!");
+      console.log("Invalid Email");
+      return "Invalid email";
+    }
+
+    if (!ValidationHelper.isValidPassword.test(this.state.signInPassword)) {
+      toast.error("Invalid password!");
+      console.log("Invalid password");
+      return "Invalid password";
+    }
+
     fetch("https://smart-brain-api.cyclic.app/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -30,12 +41,11 @@ class SignIn extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data !== undefined && data.objectId !== undefined) {
           this.props.loadUser(data);
           this.props.onRouteChange("home");
         } else {
-          return data;
+          toast.error("Sorry: \t" + data);
         }
       })
       .catch((error) => {

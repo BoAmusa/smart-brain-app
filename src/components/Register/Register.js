@@ -1,4 +1,6 @@
 import React from "react";
+import * as ValidationHelper from "../../util/ValidationHelper";
+import toast from "react-hot-toast";
 
 class Register extends React.Component {
   constructor(props) {
@@ -21,6 +23,21 @@ class Register extends React.Component {
   };
 
   onSubmitSignIn = () => {
+    if (!ValidationHelper.isValidEmail.test(this.state.email)) {
+      toast.error("Invalid email!", { position: toast.POSITION.TOP_CENTER });
+      return "Invalid email";
+    }
+
+    if (!ValidationHelper.isValidPassword.test(this.state.password)) {
+      toast.error("Invalid password!");
+      return "Invalid password";
+    }
+
+    if (this.state.name === undefined) {
+      toast.error("Invalid name!");
+      return "Invalid name";
+    }
+
     fetch("https://smart-brain-api.cyclic.app/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -32,10 +49,17 @@ class Register extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        if (user !== undefined) {
+        if (user !== undefined && user.objectId !== undefined) {
           this.props.loadUser(user);
           this.props.onRouteChange("home");
+        } else {
+          toast.error("Error while registering user!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -71,7 +95,7 @@ class Register extends React.Component {
                 />
               </div>
               <div className="mv3">
-                <label className="db fw6 lh-copy f6" for="password">
+                <label className="db fw6 lh-copy f6" htmlFor="password">
                   Password
                 </label>
                 <input
