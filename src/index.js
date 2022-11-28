@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "tachyons";
-import "react-toastify"
+import "react-hot-toast";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

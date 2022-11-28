@@ -24,7 +24,7 @@ class Register extends React.Component {
 
   onSubmitSignIn = () => {
     if (!ValidationHelper.isValidEmail.test(this.state.email)) {
-      toast.error("Invalid email!", { position: toast.POSITION.TOP_CENTER });
+      toast.error("Invalid email!");
       return "Invalid email";
     }
 
@@ -33,7 +33,7 @@ class Register extends React.Component {
       return "Invalid password";
     }
 
-    if (this.state.name === undefined) {
+    if (!ValidationHelper.isNameEmpty.test(this.state.name)) {
       toast.error("Invalid name!");
       return "Invalid name";
     }
@@ -53,9 +53,7 @@ class Register extends React.Component {
           this.props.loadUser(user);
           this.props.onRouteChange("home");
         } else {
-          toast.error("Error while registering user!", {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error("Error while registering user!");
         }
       })
       .catch((error) => {
