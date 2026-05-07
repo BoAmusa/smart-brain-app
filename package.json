@@ -4,14 +4,14 @@
   "private": true,
   "homepage": "https://boamusa.github.io/smart-brain-app/",
   "dependencies": {
-    "clarifai": "^2.9.1",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-hot-toast": "^2.4.0",
-    "react-particles-js": "^2.7.0",
+    "clarifai": "^4.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-particles": "^2.13.0",
     "react-scripts": "5.0.1",
     "react-tilt": "^0.1.4",
-    "tachyons": "^4.11.1"
+    "tachyons": "^4.12.0"
   },
   "scripts": {
     "predeploy": "npm run build",
