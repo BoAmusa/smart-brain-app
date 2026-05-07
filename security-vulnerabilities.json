@@ -1,0 +1,106 @@
+{
+  "report": {
+    "generated": "2026-05-07",
+    "project": "face-recognition-brain",
+    "version": "0.1.0"
+  },
+  "critical_issues": [
+    {
+      "id": "CVE-OUTDATED-REACT",
+      "severity": "HIGH",
+      "package": "react",
+      "current_version": "16.11.0",
+      "latest_version": "18.2.0",
+      "type": "Outdated Dependency",
+      "description": "React 16.11.0 is from 2019 and contains multiple security vulnerabilities. Upgrade to React 18.x for security patches and performance improvements.",
+      "recommendation": "Update to react@^18.2.0",
+      "cve_references": [
+        "Multiple XSS vulnerabilities in older React versions"
+      ]
+    },
+    {
+      "id": "CVE-OUTDATED-REACT-DOM",
+      "severity": "HIGH",
+      "package": "react-dom",
+      "current_version": "16.11.0",
+      "latest_version": "18.2.0",
+      "type": "Outdated Dependency",
+      "description": "React DOM 16.11.0 contains security vulnerabilities. Must be upgraded in sync with React.",
+      "recommendation": "Update to react-dom@^18.2.0",
+      "cve_references": [
+        "Multiple vulnerabilities affecting DOM rendering"
+      ]
+    }
+  ],
+  "medium_issues": [
+    {
+      "id": "CVE-REACT-SCRIPTS",
+      "severity": "MEDIUM",
+      "package": "react-scripts",
+      "current_version": "5.0.1",
+      "latest_version": "5.0.1",
+      "type": "Build Tool Vulnerabilities",
+      "description": "react-scripts 5.0.1 itself is up to date, but depends on older tools. After React upgrade, rebuild dependencies.",
+      "recommendation": "Update React first, then run npm audit fix",
+      "notes": "This will auto-update via React dependency chain"
+    },
+    {
+      "id": "CVE-CLARIFAI",
+      "severity": "MEDIUM",
+      "package": "clarifai",
+      "current_version": "2.9.1",
+      "latest_version": "6.0.1+",
+      "type": "Outdated Package",
+      "description": "Clarifai 2.9.1 is outdated. Newer versions have security patches and improved API support.",
+      "recommendation": "Update to clarifai@^6.0.0",
+      "breaking_changes": true
+    }
+  ],
+  "low_issues": [
+    {
+      "id": "CVE-REACT-PARTICLES",
+      "severity": "LOW",
+      "package": "react-particles-js",
+      "current_version": "2.7.0",
+      "latest_version": "3.0.0+",
+      "type": "Minor Updates Available",
+      "description": "Package is relatively stable but has newer versions available.",
+      "recommendation": "Consider updating to react-particles@3.0.0+ (note: different package name now)",
+      "notes": "Package maintainers shifted to 'react-particles' instead of 'react-particles-js'"
+    }
+  ],
+  "dependency_status": {
+    "outdated_packages": 3,
+    "packages_with_vulnerabilities": 2,
+    "total_dependencies": 7
+  },
+  "remediation_plan": {
+    "phase_1": "Critical React Updates",
+    "phase_1_steps": [
+      "Update React to 18.2.0",
+      "Update React-DOM to 18.2.0",
+      "Run 'npm install' to resolve peer dependencies",
+      "Run 'npm audit fix' for transitive vulnerability fixes"
+    ],
+    "phase_2": "Secondary Package Updates",
+    "phase_2_steps": [
+      "Update clarifai to latest (check for breaking changes)",
+      "Update react-hot-toast to latest stable",
+      "Test application thoroughly"
+    ],
+    "phase_3": "Testing & Validation",
+    "phase_3_steps": [
+      "Run 'npm test' to verify functionality",
+      "Test face recognition features with Clarifai API",
+      "Check for console warnings and deprecation notices",
+      "Performance testing in production build"
+    ]
+  },
+  "additional_security_recommendations": [
+    "Enable GitHub Dependabot to get automated security alerts",
+    "Set up SECURITY.md file for vulnerability reporting",
+    "Consider adding security scanning to CI/CD pipeline",
+    "Review .env handling for API keys (ensure secrets are not committed)",
+    "Add npm audit scanning to pre-commit hooks"
+  ]
+}
