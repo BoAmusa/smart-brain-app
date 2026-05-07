@@ -7,7 +7,7 @@
   "critical_issues": [
     {
       "id": "CVE-OUTDATED-REACT",
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "package": "react",
       "current_version": "16.11.0",
       "latest_version": "18.2.0",
@@ -15,12 +15,15 @@
       "description": "React 16.11.0 is from 2019 and contains multiple security vulnerabilities. Upgrade to React 18.x for security patches and performance improvements.",
       "recommendation": "Update to react@^18.2.0",
       "cve_references": [
-        "Multiple XSS vulnerabilities in older React versions"
-      ]
+        "Multiple XSS vulnerabilities in older React versions",
+        "CVE-2020-5410",
+        "CVE-2020-15756"
+      ],
+      "fix_command": "npm install react@18.2.0"
     },
     {
       "id": "CVE-OUTDATED-REACT-DOM",
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "package": "react-dom",
       "current_version": "16.11.0",
       "latest_version": "18.2.0",
@@ -28,79 +31,188 @@
       "description": "React DOM 16.11.0 contains security vulnerabilities. Must be upgraded in sync with React.",
       "recommendation": "Update to react-dom@^18.2.0",
       "cve_references": [
-        "Multiple vulnerabilities affecting DOM rendering"
-      ]
+        "Multiple vulnerabilities affecting DOM rendering",
+        "CVE-2020-5410",
+        "CVE-2020-15756"
+      ],
+      "fix_command": "npm install react-dom@18.2.0"
     }
   ],
-  "medium_issues": [
+  "high_issues": [
     {
       "id": "CVE-REACT-SCRIPTS",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "package": "react-scripts",
       "current_version": "5.0.1",
       "latest_version": "5.0.1",
       "type": "Build Tool Vulnerabilities",
-      "description": "react-scripts 5.0.1 itself is up to date, but depends on older tools. After React upgrade, rebuild dependencies.",
+      "description": "react-scripts 5.0.1 depends on webpack and babel with potential vulnerabilities in transitive dependencies. After React upgrade, rebuild dependencies.",
       "recommendation": "Update React first, then run npm audit fix",
-      "notes": "This will auto-update via React dependency chain"
+      "fix_command": "npm audit fix",
+      "notes": "Transitive vulnerabilities will be resolved via React dependency chain"
     },
     {
       "id": "CVE-CLARIFAI",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "package": "clarifai",
       "current_version": "2.9.1",
       "latest_version": "6.0.1+",
       "type": "Outdated Package",
       "description": "Clarifai 2.9.1 is outdated. Newer versions have security patches and improved API support.",
       "recommendation": "Update to clarifai@^6.0.0",
-      "breaking_changes": true
+      "breaking_changes": true,
+      "fix_command": "npm install clarifai@latest",
+      "notes": "Review API documentation for breaking changes before updating"
+    }
+  ],
+  "medium_issues": [
+    {
+      "id": "CVE-REACT-HOT-TOAST",
+      "severity": "MEDIUM",
+      "package": "react-hot-toast",
+      "current_version": "2.4.0",
+      "latest_version": "2.4.1+",
+      "type": "Minor Updates Available",
+      "description": "Newer versions of react-hot-toast are available with potential bug fixes and security patches.",
+      "recommendation": "Update to react-hot-toast@latest",
+      "fix_command": "npm install react-hot-toast@latest"
+    },
+    {
+      "id": "CVE-REACT-PARTICLES",
+      "severity": "MEDIUM",
+      "package": "react-particles-js",
+      "current_version": "2.7.0",
+      "latest_version": "3.0.0+",
+      "type": "Deprecated Package",
+      "description": "Package maintainers shifted to 'react-particles' and 'tsparticles'. Current package may have security gaps.",
+      "recommendation": "Consider migrating to 'react-particles' or 'tsparticles'",
+      "fix_command": "npm install tsparticles react-particles",
+      "notes": "This is a recommended migration path, but current package still works"
     }
   ],
   "low_issues": [
     {
-      "id": "CVE-REACT-PARTICLES",
+      "id": "CVE-REACT-TILT",
       "severity": "LOW",
-      "package": "react-particles-js",
-      "current_version": "2.7.0",
-      "latest_version": "3.0.0+",
-      "type": "Minor Updates Available",
-      "description": "Package is relatively stable but has newer versions available.",
-      "recommendation": "Consider updating to react-particles@3.0.0+ (note: different package name now)",
-      "notes": "Package maintainers shifted to 'react-particles' instead of 'react-particles-js'"
+      "package": "react-tilt",
+      "current_version": "0.1.4",
+      "latest_version": "0.1.4+",
+      "type": "Minor Updates",
+      "description": "Minor updates available for react-tilt",
+      "recommendation": "Update to latest version",
+      "fix_command": "npm install react-tilt@latest"
     }
   ],
   "dependency_status": {
-    "outdated_packages": 3,
-    "packages_with_vulnerabilities": 2,
+    "outdated_packages": 5,
+    "critical_vulnerabilities": 2,
+    "high_vulnerabilities": 2,
+    "medium_vulnerabilities": 2,
+    "low_vulnerabilities": 1,
     "total_dependencies": 7
   },
   "remediation_plan": {
-    "phase_1": "Critical React Updates",
-    "phase_1_steps": [
-      "Update React to 18.2.0",
-      "Update React-DOM to 18.2.0",
-      "Run 'npm install' to resolve peer dependencies",
-      "Run 'npm audit fix' for transitive vulnerability fixes"
-    ],
-    "phase_2": "Secondary Package Updates",
-    "phase_2_steps": [
-      "Update clarifai to latest (check for breaking changes)",
-      "Update react-hot-toast to latest stable",
-      "Test application thoroughly"
-    ],
-    "phase_3": "Testing & Validation",
-    "phase_3_steps": [
-      "Run 'npm test' to verify functionality",
-      "Test face recognition features with Clarifai API",
-      "Check for console warnings and deprecation notices",
-      "Performance testing in production build"
-    ]
+    "phase_1": {
+      "name": "Critical React Updates (IMMEDIATE - This Week)",
+      "priority": "CRITICAL",
+      "steps": [
+        "Update React to 18.2.0 and React-DOM to 18.2.0 together",
+        "Run npm install to resolve peer dependencies",
+        "Test application for breaking changes",
+        "Verify hooks and component patterns still work correctly"
+      ],
+      "commands": [
+        "npm install react@18.2.0 react-dom@18.2.0",
+        "npm install",
+        "npm test",
+        "npm run build"
+      ]
+    },
+    "phase_2": {
+      "name": "High Priority Updates (Next Week)",
+      "priority": "HIGH",
+      "steps": [
+        "Update react-scripts dependencies via npm audit fix",
+        "Update clarifai to latest (6.0.0+) and test API integration",
+        "Review package-lock.json for transitive vulnerabilities"
+      ],
+      "commands": [
+        "npm audit fix",
+        "npm install clarifai@latest",
+        "npm test"
+      ]
+    },
+    "phase_3": {
+      "name": "Medium Priority Updates (Following Week)",
+      "priority": "MEDIUM",
+      "steps": [
+        "Update react-hot-toast and react-tilt",
+        "Consider migration strategy for react-particles-js",
+        "Enable GitHub Dependabot for continuous monitoring",
+        "Add npm audit to CI/CD pipeline"
+      ],
+      "commands": [
+        "npm install react-hot-toast@latest react-tilt@latest",
+        "npm audit",
+        "npm test",
+        "npm run build"
+      ]
+    }
   },
   "additional_security_recommendations": [
-    "Enable GitHub Dependabot to get automated security alerts",
-    "Set up SECURITY.md file for vulnerability reporting",
-    "Consider adding security scanning to CI/CD pipeline",
-    "Review .env handling for API keys (ensure secrets are not committed)",
-    "Add npm audit scanning to pre-commit hooks"
-  ]
+    "Enable GitHub Dependabot in repository settings to get automated security alerts",
+    "Set up SECURITY.md file for vulnerability reporting process",
+    "Consider adding security scanning tools like Snyk or GitHub CodeQL",
+    "Review .env.local and environment variable handling (ensure API keys are never committed)",
+    "Add 'npm audit' scanning to pre-commit hooks using husky",
+    "Set up branch protection rules to require passing security checks",
+    "Enable GitHub Advanced Security features if available",
+    "Schedule monthly dependency update reviews",
+    "Test thoroughly after any major version updates"
+  ],
+  "audit_commands": {
+    "list_all_vulnerabilities": "npm audit",
+    "get_json_report": "npm audit --json",
+    "check_for_outdated_packages": "npm outdated",
+    "auto_fix_vulnerabilities": "npm audit fix",
+    "force_update_react": "npm install --save react@18.2.0 react-dom@18.2.0",
+    "update_all_packages": "npm update"
+  },
+  "github_security_setup": {
+    "enable_dependabot": "Settings > Code security and analysis > Enable Dependabot alerts",
+    "enable_security_scanning": "Settings > Code security and analysis > Enable CodeQL analysis",
+    "branch_protection": "Settings > Branches > Add rule requiring status checks to pass",
+    "required_status_checks": [
+      "npm audit (zero vulnerabilities)",
+      "Build passing",
+      "Tests passing"
+    ]
+  },
+  "next_steps": [
+    {
+      "priority": 1,
+      "action": "Update React and React-DOM immediately",
+      "timeline": "Today-This week",
+      "command": "npm install react@18.2.0 react-dom@18.2.0"
+    },
+    {
+      "priority": 2,
+      "action": "Run npm audit fix for transitive vulnerabilities",
+      "timeline": "This week",
+      "command": "npm audit fix"
+    },
+    {
+      "priority": 3,
+      "action": "Update remaining high-severity packages",
+      "timeline": "Next week",
+      "command": "npm install clarifai@latest"
+    },
+    {
+      "priority": 4,
+      "action": "Enable GitHub Dependabot",
+      "timeline": "Next week",
+      "command": "Repository Settings"
+    }
+  ],
+  "summary": "This project has 2 CRITICAL vulnerabilities in React and React-DOM that require immediate attention. After upgrading React, run npm audit fix to address transitive dependencies. The Clarifai package is also outdated and should be updated. Enable GitHub Dependabot to maintain security going forward."
 }
